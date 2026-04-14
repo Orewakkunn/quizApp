@@ -1,3 +1,4 @@
+let scoreDiv=document.querySelector(".score-div");
 let startScreen=document.querySelector("#start-screen");
 let startTitle=document.querySelector(".start-title");
 let startButton=document.querySelector(".start-button");
@@ -8,12 +9,13 @@ let timerClass=document.querySelector(".timer-class");
 let buttonClass=document.querySelectorAll(".button-class");
 
 let resultScreen=document.querySelector("#result-screen");
-let resultClass=document.querySelector(".result-class");
+let resultScore=document.querySelector(".result-score");
 let retryButton=document.querySelector(".retry-button");
 let scoreBoard=document.querySelector(".scoreboard-class");
 
 let questionsArray;
 let arrayIndex=0;
+let score=0;
 let url=`https://opentdb.com/api.php?amount=10&type=multiple`;
 
 //fetch using async/await same as then() in weather project
@@ -47,7 +49,6 @@ function displayQuestion(questionsArray){
 
     //shuffle the elements
     shuffle(optionsArray);
-    console.log(optionsArray);
     buttonClass[0].textContent=optionsArray[0];
     buttonClass[1].textContent=optionsArray[1];
     buttonClass[2].textContent=optionsArray[2];
@@ -64,8 +65,35 @@ async function startQuiz(){
     displayQuestion(questionsArray);
 }
 
+//display result screen
+function displayResult(){
+    questionScreen.style.display="none";
+    resultScreen.style.display="block";
+    resultScore.textContent=`Score is:- ${ score} /10`;
+
+    
+}
 startButton.addEventListener("click",(e)=>{
     startQuiz();
     
 });
+
+//checking if the answer is correct or no
+//had to foreach coz buttonClass is an array
+buttonClass.forEach((button,index)=>{
+    button.addEventListener("click",()=>{
+        //check
+        if(button.textContent==questionsArray[arrayIndex].correct_answer){
+            score++;
+            scoreDiv.textContent=score;
+        }
+        arrayIndex++; //increment
+        if(arrayIndex>=10){ //check if 10 ques passes
+            displayResult();
+            return;
+        }
+        displayQuestion(questionsArray);//display if its not 10 ques
+        
+    })
+})
 
