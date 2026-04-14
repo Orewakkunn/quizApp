@@ -73,6 +73,17 @@ function displayResult(){
 
     
 }
+
+//retry button funtion
+function retryques(){
+    arrayIndex=0;
+    resultScreen.style.display="none";
+    questionScreen.style.display="block";
+    score=0;
+    scoreDiv.textContent=score;
+    displayQuestion(questionsArray);
+}
+
 startButton.addEventListener("click",(e)=>{
     startQuiz();
     
@@ -95,5 +106,10 @@ buttonClass.forEach((button,index)=>{
         displayQuestion(questionsArray);//display if its not 10 ques
         
     })
+
+    
 })
 
+retryButton.addEventListener("click",()=>{
+        retryques();
+    })
