@@ -16,6 +16,8 @@ let scoreBoard=document.querySelector(".scoreboard-class");
 let questionsArray;
 let arrayIndex=0;
 let score=0;
+let timerId;  // stores the setInterval reference id
+let timerLeft=15;   // countdown variable
 let url=`https://opentdb.com/api.php?amount=10&type=multiple`;
 
 //fetch using async/await same as then() in weather project
@@ -37,8 +39,30 @@ function shuffle(array){
     return array;
 }
 
+
+//setInterval for timer
+function startTimer(){
+    clearInterval(timerId);//delete old timer duratn if not then it will be mix up
+    timerId=setInterval(()=>{              
+        timerLeft--;
+        timerClass.textContent=timerLeft;
+
+        if (timerLeft==0){           
+            timerLeft=15;
+            timerClass.textContent=timerLeft;
+            arrayIndex++;
+            displayQuestion(questionsArray)
+        }
+    },1000);
+}
+
 //will display the question 
 function displayQuestion(questionsArray){
+    if(arrayIndex==10){
+            clearInterval(timerId);
+            displayResult();
+            return;
+        }
 
     //displays (question,options)
     let rawQuestion=questionsArray[arrayIndex].question;
@@ -54,6 +78,7 @@ function displayQuestion(questionsArray){
     buttonClass[2].textContent=optionsArray[2];
     buttonClass[3].textContent=optionsArray[3];
 
+    startTimer();
 }
 
 // will start the quiz
@@ -70,8 +95,7 @@ function displayResult(){
     questionScreen.style.display="none";
     resultScreen.style.display="block";
     resultScore.textContent=`Score is:- ${ score} /10`;
-
-    
+       
 }
 
 //retry button funtion
@@ -81,12 +105,13 @@ function retryques(){
     questionScreen.style.display="block";
     score=0;
     scoreDiv.textContent=score;
+    timerLeft=15;
+    timerClass.textContent=timerLeft;
     displayQuestion(questionsArray);
 }
 
 startButton.addEventListener("click",(e)=>{
-    startQuiz();
-    
+    startQuiz();   
 });
 
 //checking if the answer is correct or no
@@ -96,20 +121,23 @@ buttonClass.forEach((button,index)=>{
         //check
         if(button.textContent==questionsArray[arrayIndex].correct_answer){
             score++;
-            scoreDiv.textContent=score;
+            scoreDiv.textContent=score;           
         }
         arrayIndex++; //increment
         if(arrayIndex>=10){ //check if 10 ques passes
+            clearInterval(timerId);
             displayResult();
             return;
         }
-        displayQuestion(questionsArray);//display if its not 10 ques
+        // clearInterval(timerId);//delete old timer duratn
+        timerLeft=15;
+        timerClass.textContent=timerLeft;
         
+        displayQuestion(questionsArray);//display if its not 10 ques
     })
-
     
 })
 
 retryButton.addEventListener("click",()=>{
-        retryques();
-    })
+    retryques();
+})
