@@ -93,7 +93,9 @@ async function startQuiz(){
 //display result screen
 function displayResult(){
     questionScreen.style.display="none";
+    scoreDiv.style.display="none";
     resultScreen.style.display="block";
+    resultScore.classList.add("result-Score");
     resultScore.textContent=`Score is:- ${ score} /10`;
        
 }
@@ -102,6 +104,7 @@ function displayResult(){
 function retryques(){
     arrayIndex=0;
     resultScreen.style.display="none";
+    scoreDiv.style.display="block";
     questionScreen.style.display="block";
     score=0;
     scoreDiv.textContent=score;
@@ -121,7 +124,7 @@ buttonClass.forEach((button,index)=>{
         //check
         if(button.textContent==questionsArray[arrayIndex].correct_answer){
             score++;
-            scoreDiv.textContent=score;           
+            scoreDiv.textContent=`score: ${score}`;           
         }
         arrayIndex++; //increment
         if(arrayIndex>=10){ //check if 10 ques passes

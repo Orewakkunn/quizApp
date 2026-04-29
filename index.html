@@ -5,32 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>quizApp</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="score-div">0</div>
-    <div id="start-screen">
-        <p class="start-title">click to start the quiz</p>
-        <button class="start-button">start</button>
-    </div>
+    <div class="container">
+        <div class="score-div">score:- 0</div>
+        <div id="start-screen">
+            <p class="start-title">click to start the quiz</p>
+            <button class="start-button">start</button>
+        </div>
 
-    <div id="question-screen">
-        <span class="question-class"></span>
-        <div class="timer-class"></div>
-        <div class="options-class">
-            <button class="button-class">value1</button>
-            <button class="button-class">value2</button>
-            <button class="button-class">value3</button>
-            <button class="button-class">value4</button>
+        <div id="question-screen">
+            <span class="question-class"></span>
+            <div class="timer-class"></div>
+            <div class="options-class">
+                <button class="button-class">value1</button>
+                <button class="button-class">value2</button>
+                <button class="button-class">value3</button>
+                <button class="button-class">value4</button>
+            </div>
+        </div>
+
+        <div id="result-screen">
+            <div class="result-score"></div>
+            <div class="retry-class">
+                <button class="retry-button">retry</button>
+                <div class="scoreboard-class"></div>
+            </div>
         </div>
     </div>
-
-    <div id="result-screen">
-        <div class="result-score"></div>
-        <div class="retry-class">
-            <button class="retry-button">retry</button>
-            <div class="scoreboard-class"></div>
-        </div>
-    </div>
+    
 </body>
 <script src="script.js"></script>
 </html>
