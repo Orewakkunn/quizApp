@@ -23,7 +23,6 @@ body{
     border: #ffb900 1px solid;
     max-width: 600px;
     width: 100%
-
 }
 .start-title{
     font-weight: bold;
@@ -51,8 +50,11 @@ body{
 .question-class{
     margin-bottom: 10px;
     font-size: 1.1rem;
-    
-
+}
+.question-num{
+    margin-bottom:6px;
+    font-size: 16px;
+    font-weight: 500;
 }
 .timer-class{
     margin-top:17px;
@@ -70,16 +72,22 @@ body{
     border-radius:5px;
     width: 100%;
     transition: all 0.2s ease;
-
 }
 .button-class:hover{
     background-color: #f59e0b;
     color:black;
-    cursor: pointer;
-    
+    cursor: pointer;   
 }
 .result-Score{
     font-size:20px;
     font-weight: bold;
     margin-top:10px;
+}
+
+.correct-ans{
+    background-color: rgb(97, 245, 97);
+    color: black;
+}
+.wrong-ans{
+    background-color: rgb(239, 84, 84);
 }

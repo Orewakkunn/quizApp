@@ -4,6 +4,7 @@ let startTitle=document.querySelector(".start-title");
 let startButton=document.querySelector(".start-button");
 
 let questionScreen=document.querySelector("#question-screen");
+let questionNum=document.querySelector(".question-num");
 let questionText=document.querySelector(".question-class");
 let timerClass=document.querySelector(".timer-class");
 let buttonClass=document.querySelectorAll(".button-class");
@@ -39,7 +40,6 @@ function shuffle(array){
     return array;
 }
 
-
 //setInterval for timer
 function startTimer(){
     clearInterval(timerId);//delete old timer duratn if not then it will be mix up
@@ -64,6 +64,8 @@ function displayQuestion(questionsArray){
             return;
         }
 
+    //displays question number
+    questionNum.textContent=`Q ${arrayIndex+1}`;
     //displays (question,options)
     let rawQuestion=questionsArray[arrayIndex].question;
     questionText.textContent=rawQuestion;
@@ -121,22 +123,42 @@ startButton.addEventListener("click",(e)=>{
 //had to foreach coz buttonClass is an array
 buttonClass.forEach((button,index)=>{
     button.addEventListener("click",()=>{
-        //check
+        //check if ans correct or not
         if(button.textContent==questionsArray[arrayIndex].correct_answer){
             score++;
-            scoreDiv.textContent=`score: ${score}`;           
+            scoreDiv.textContent=`score: ${score}`;       
+            button.classList.add("correct-ans");
+                 
+        }else{
+            button.classList.add("wrong-ans");
         }
-        arrayIndex++; //increment
-        if(arrayIndex>=10){ //check if 10 ques passes
-            clearInterval(timerId);
-            displayResult();
-            return;
-        }
-        // clearInterval(timerId);//delete old timer duratn
-        timerLeft=15;
-        timerClass.textContent=timerLeft;
-        
-        displayQuestion(questionsArray);//display if its not 10 ques
+
+        //multiple click disabled
+        buttonClass.forEach((button)=>{
+            button.disabled=true;
+        })
+        //runs code after 1sec(1000ms)
+        setTimeout(()=>{ 
+            //multiple click enabled
+            buttonClass.forEach((button)=>{
+                button.disabled=false;
+            })
+
+            button.classList.remove("correct-ans");      
+            button.classList.remove("wrong-ans");            
+            arrayIndex++; //increment
+
+            if(arrayIndex>=10){ //check if 10 ques passes
+                clearInterval(timerId);
+                displayResult();
+                return;
+            }
+            
+            // clearInterval(timerId);//delete old timer duratn
+            timerLeft=15;
+            timerClass.textContent=timerLeft;
+            displayQuestion(questionsArray);//display if its not 10 ques
+        },1000)        
     })
     
 })
