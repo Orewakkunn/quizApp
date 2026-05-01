@@ -83,11 +83,12 @@ body{
     font-weight: bold;
     margin-top:10px;
 }
-
-.correct-ans{
-    background-color: rgb(97, 245, 97);
-    color: black;
+/* space = child element */
+/* no space = same element with both classes */
+.button-class.correct-ans{
+    background-color: rgb(97, 245, 97) ;
+    color: black ;
 }
-.wrong-ans{
+.button-class.wrong-ans{
     background-color: rgb(239, 84, 84);
 }
